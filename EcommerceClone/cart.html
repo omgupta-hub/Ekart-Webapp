@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart - Ekart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link rel="stylesheet" href="static/css/styles.css">
+</head>
+<body class="min-h-screen">
+  <!-- Navbar -->
+  <header class="bg-amazon-primary text-white">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between py-2">
+        <a href="index.html" class="text-2xl font-bold text-white">Ekart</a>
+        
+        <!-- SearchBar -->
+        <div class="flex-1 max-w-3xl mx-4">
+          <div class="flex">
+            <select id="category-select" class="bg-gray-100 text-gray-800 px-3 rounded-l-md border-r border-gray-300 focus:outline-none">
+              <option value="all">All</option>
+              <!-- Categories will be populated by JavaScript -->
+            </select>
+            <input type="text" id="search-input" placeholder="Search products..." class="flex-1 px-4 py-2 focus:outline-none text-gray-800">
+            <button id="search-button" class="bg-amazon-light hover:bg-amazon-accent text-amazon-primary px-4 rounded-r-md flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <nav class="flex items-center">
+          <a href="#" class="text-sm mr-6 hover:text-amazon-light">Orders</a>
+          <a href="cart.html" class="relative mr-2 hover:text-amazon-light">
+            <span id="cart-count" class="absolute cart-badge bg-amazon-accent text-amazon-primary text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </a>
+        </nav>
+      </div>
+      
+      <div class="bg-amazon-secondary py-2 px-4">
+        <div class="flex text-sm">
+          <a href="#" class="text-white mr-6 hover:text-amazon-light">Today's Deals</a>
+          <a href="#" class="text-white mr-6 hover:text-amazon-light">Customer Service</a>
+          <a href="#" class="text-white mr-6 hover:text-amazon-light">Gift Cards</a>
+          <a href="#" class="text-white hover:text-amazon-light">Sell</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto p-4">
+    <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+      <h1 class="text-3xl font-bold mb-6">Shopping Cart</h1>
+      
+      <div id="cart-items-container" class="mb-6">
+        <!-- Empty cart message -->
+        <div id="empty-cart-message" class="hidden py-8 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <h2 class="text-2xl font-medium mb-2">Your Ekart Cart is empty</h2>
+          <p class="text-gray-500 mb-4">Shop today's deals</p>
+          <a href="index.html" class="bg-amazon-light hover:bg-amazon-accent text-amazon-primary font-medium py-2 px-6 rounded">Continue Shopping</a>
+        </div>
+        
+        <!-- Cart items -->
+        <div id="cart-items" class="divide-y">
+          <!-- Cart items will be loaded via JavaScript -->
+        </div>
+      </div>
+      
+      <div id="cart-summary" class="border-t pt-4 text-right">
+        <div class="text-lg mb-2">
+          Subtotal (<span id="cart-item-count">0</span> items): <span class="font-bold">$<span id="cart-total">0.00</span></span>
+        </div>
+        <button id="checkout-button" class="bg-amazon-light hover:bg-amazon-accent text-amazon-primary font-medium py-2 px-6 rounded">Proceed to Checkout</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-amazon-secondary text-white py-10 mt-10">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="font-bold text-lg mb-4">Get to Know Us</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:underline">Careers</a></li>
+            <li><a href="#" class="hover:underline">About Ekart</a></li>
+            <li><a href="#" class="hover:underline">Sustainability</a></li>
+            <li><a href="#" class="hover:underline">Press Center</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-bold text-lg mb-4">Make Money with Us</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:underline">Sell products on Ekart</a></li>
+            <li><a href="#" class="hover:underline">Become an Affiliate</a></li>
+            <li><a href="#" class="hover:underline">Advertise Your Products</a></li>
+            <li><a href="#" class="hover:underline">Self-Publish with Us</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-bold text-lg mb-4">Payment Products</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:underline">Business Card</a></li>
+            <li><a href="#" class="hover:underline">Shop with Points</a></li>
+            <li><a href="#" class="hover:underline">Reload Your Balance</a></li>
+            <li><a href="#" class="hover:underline">Currency Converter</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-bold text-lg mb-4">Let Us Help You</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:underline">Your Account</a></li>
+            <li><a href="#" class="hover:underline">Your Orders</a></li>
+            <li><a href="#" class="hover:underline">Shipping Rates & Policies</a></li>
+            <li><a href="#" class="hover:underline">Returns & Replacements</a></li>
+            <li><a href="#" class="hover:underline">Help</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="mt-10 pt-6 border-t border-gray-700 text-center">
+        <a href="#" class="text-2xl font-bold">Ekart</a>
+        <p class="mt-2 text-sm">&copy; 2023 Ekart. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="static/js/transition.js"></script>
+  <script src="static/js/cart.js"></script>
+</body>
+</html>

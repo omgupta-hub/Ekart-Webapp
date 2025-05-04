@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - Amazon Clone</title>
+    
+    <!-- Bootstrap CSS (Replit-themed) -->
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Top Navbar -->
+        <nav class="navbar navbar-expand-lg bg-dark">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand" href="index.html">
+                    <span class="fw-bold text-warning">
+                        <i class="fas fa-shopping-cart"></i> Ekart
+                    </span>
+                </a>
+                
+                <!-- Mobile Toggle Button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <!-- Navbar Links -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Search Form -->
+                    <form class="d-flex search-bar mx-auto my-2 my-lg-0" id="search-form">
+                        <div class="input-group">
+                            <input class="form-control" type="search" id="search-input" name="q" placeholder="Search products" aria-label="Search">
+                            <button class="btn btn-warning" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Right Side Nav Items -->
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-circle me-1"></i> Account
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Sign In</a></li>
+                                <li><a class="dropdown-item" href="#">Register</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Orders</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="cart.html">
+                                <i class="fas fa-shopping-cart me-1"></i> Cart
+                                <span id="cart-count" class="badge bg-danger rounded-pill d-none">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Categories Navbar -->
+        <nav class="navbar navbar-expand-lg bg-secondary">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesNavbar" aria-controls="categoriesNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="categoriesNavbar">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link category-link" href="#" data-category="electronics">Electronics</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link category-link" href="#" data-category="jewelery">Jewelery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link category-link" href="#" data-category="men's clothing">Men's Clothing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link category-link" href="#" data-category="women's clothing">Women's Clothing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">All Products</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="container py-4">
+        <!-- Toast Container -->
+        <div id="toast-container"></div>
+        
+        <!-- Error Container -->
+        <div id="no-results-message" class="mb-4 text-muted" style="display: none;"></div>
+        
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Search Results</li>
+            </ol>
+        </nav>
+        
+        <!-- Search Results Header -->
+        <div class="mb-4">
+            <h1>Search Results for "<span id="search-query"></span>"</h1>
+            <p><span id="results-count">0</span> products found</p>
+        </div>
+        
+        <!-- Search Filters (Sidebar) -->
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Filters</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Price Range -->
+                        <div class="mb-4">
+                            <h6>Price Range</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="price-range-1">
+                                <label class="form-check-label" for="price-range-1">
+                                    Under $25
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="price-range-2">
+                                <label class="form-check-label" for="price-range-2">
+                                    $25 to $50
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="price-range-3">
+                                <label class="form-check-label" for="price-range-3">
+                                    $50 to $100
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="price-range-4">
+                                <label class="form-check-label" for="price-range-4">
+                                    Over $100
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Categories -->
+                        <div class="mb-4">
+                            <h6>Categories</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="category-electronics">
+                                <label class="form-check-label" for="category-electronics">
+                                    Electronics
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="category-jewelery">
+                                <label class="form-check-label" for="category-jewelery">
+                                    Jewelery
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="category-men">
+                                <label class="form-check-label" for="category-men">
+                                    Men's Clothing
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="category-women">
+                                <label class="form-check-label" for="category-women">
+                                    Women's Clothing
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Rating -->
+                        <div>
+                            <h6>Rating</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="rating-4">
+                                <label class="form-check-label" for="rating-4">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="far fa-star text-warning"></i> & Up
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="rating-3">
+                                <label class="form-check-label" for="rating-3">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="far fa-star text-warning"></i>
+                                    <i class="far fa-star text-warning"></i> & Up
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="rating-2">
+                                <label class="form-check-label" for="rating-2">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="far fa-star text-warning"></i>
+                                    <i class="far fa-star text-warning"></i>
+                                    <i class="far fa-star text-warning"></i> & Up
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Search Results -->
+            <div class="col-md-9">
+                <div id="search-results">
+                    <!-- Search results will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Ekart</h5>
+                    <p class="text-muted">This is a demo project using the FakeStore API to create an Amazon-like interface.</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h6>Shop</h6>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="index.html">All Products</a></li>
+                        <li><a class="category-link" href="#" data-category="electronics">Electronics</a></li>
+                        <li><a class="category-link" href="#" data-category="jewelery">Jewelery</a></li>
+                        <li><a class="category-link" href="#" data-category="men's clothing">Men's Clothing</a></li>
+                        <li><a class="category-link" href="#" data-category="women's clothing">Women's Clothing</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h6>Account</h6>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#">Sign In</a></li>
+                        <li><a href="#">Register</a></li>
+                        <li><a href="cart.html">View Cart</a></li>
+                        <li><a href="#">Orders</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6>About</h6>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4">
+            <div class="text-center text-muted">
+                <small>&copy; 2025 Ekart. This is a demo project and affiliated with Ekart.</small>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Common JavaScript -->
+    <script src="/static/js/transition.js"></script>
+    <!-- Page-specific JavaScript -->
+    <script src="/static/js/search.js"></script>
+    <script src="/static/js/router.js"></script>
+</body>
+</html>
